@@ -4,8 +4,11 @@
 ## Telegraf configuration
 
 `cd /etc/telegraf/`
+
 `mkdir scripts && cd scripts`
+
 `wget https://raw.githubusercontent.com/jahlib/3x-ui-telegraf-influx/refs/heads/main/telegraf/scripts/3xui.py`
+
 `sudo chmod a+x 3xui.py`
 
 add this input to your telegraf.conf
