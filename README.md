@@ -11,6 +11,17 @@
 
 `sudo chmod a+x 3xui.py`
 
+Dont forget to change {PORT} {WEBPATH} {USERNAME} and {PASSWORD} in 3xui.py
+```
+>>>
+BASE_URL = "http://localhost:{PORT}"
+LOGIN_ENDPOINT = "/{WEBPATH}/login"
+ONLINE_ENDPOINT = "/{WEBPATH}/panel/inbound/onlines"
+USERNAME = "{USERNAME}"
+PASSWORD = "{PASSWORD}"
+<<<
+```
+
 add this input to your telegraf.conf
 ```
 [[inputs.exec]]
