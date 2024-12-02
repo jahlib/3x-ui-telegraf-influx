@@ -15,15 +15,19 @@ sudo wget https://raw.githubusercontent.com/jahlib/3x-ui-telegraf-influx/refs/he
 sudo chmod a+x online.py traffic.py
 ```
 
-Dont forget to change {PORT} {WEBPATH} {USERNAME} and {PASSWORD} in both .py scripts
+Run that one-shot command to enter&replace placeholders in both files:
 ```
->>>
-BASE_URL = "http://localhost:{PORT}"
-LOGIN_ENDPOINT = "/{WEBPATH}/login"
-ONLINE_ENDPOINT = "/{WEBPATH}/panel/inbound/onlines"
-USERNAME = "{USERNAME}"
-PASSWORD = "{PASSWORD}"
-<<<
+read -p "Enter port (PORT): " PORT && \
+read -p "Enter web path (WEBPATH): " WEBPATH && \
+read -p "Enter username (USERNAME): " USERNAME && \
+read -sp "Enter password (PASSWORD): " PASSWORD && echo && \
+for FILE in /etc/telegraf/scripts/online.py /etc/telegraf/scripts/traffic.py; do \
+  sed -i "s|BASE_URL = .*|BASE_URL = \"http://localhost:${PORT}\"|g" "$FILE" && \
+  sed -i "s|LOGIN_ENDPOINT = .*|LOGIN_ENDPOINT = \"/${WEBPATH}/login\"|g" "$FILE" && \
+  sed -i "s|ONLINE_ENDPOINT = .*|ONLINE_ENDPOINT = \"/${WEBPATH}/panel/inbound/onlines\"|g" "$FILE" && \
+  sed -i "s|USERNAME = .*|USERNAME = \"${USERNAME}\"|g" "$FILE" && \
+  sed -i "s|PASSWORD = .*|PASSWORD = \"${PASSWORD}\"|g" "$FILE"; \
+done
 ```
 
 add this input to your telegraf.conf
