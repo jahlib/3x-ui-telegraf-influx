@@ -17,6 +17,7 @@ sudo chmod a+x online.py traffic.py
 
 Run that one-shot command to enter&replace placeholders in both files:
 ```
+sudo bash -c '
 read -p "Enter port (PORT): " PORT && \
 read -p "Enter web path (WEBPATH): " WEBPATH && \
 read -p "Enter username (USERNAME): " USERNAME && \
@@ -28,6 +29,7 @@ for FILE in /etc/telegraf/scripts/online.py /etc/telegraf/scripts/traffic.py; do
   sed -i "s|USERNAME = .*|USERNAME = \"${USERNAME}\"|g" "$FILE" && \
   sed -i "s|PASSWORD = .*|PASSWORD = \"${PASSWORD}\"|g" "$FILE"; \
 done
+'
 ```
 
 add this input to your telegraf.conf
