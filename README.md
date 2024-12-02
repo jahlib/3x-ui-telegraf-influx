@@ -40,5 +40,7 @@ add this input to your telegraf.conf
 
 `sudo systemctl restart telegraf`
 
-`telegraf --config telegraf.conf --test`
 make sure your new metrics are showing up
+
+`telegraf --config telegraf.conf --test`
+
