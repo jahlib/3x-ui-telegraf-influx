@@ -22,12 +22,8 @@ read -p "Enter port (PORT): " PORT && \
 read -p "Enter web path (WEBPATH): " WEBPATH && \
 read -p "Enter username (USERNAME): " USERNAME && \
 read -sp "Enter password (PASSWORD): " PASSWORD && echo && \
-for FILE in /etc/telegraf/scripts/online.py /etc/telegraf/scripts/traffic.py; do \
-  sed -i "s|BASE_URL = .*|BASE_URL = \"http://localhost:${PORT}\"|g" "$FILE" && \
-  sed -i "s|LOGIN_ENDPOINT = .*|LOGIN_ENDPOINT = \"/${WEBPATH}/login\"|g" "$FILE" && \
-  sed -i "s|ONLINE_ENDPOINT = .*|ONLINE_ENDPOINT = \"/${WEBPATH}/panel/inbound/onlines\"|g" "$FILE" && \
-  sed -i "s|USERNAME = .*|USERNAME = \"${USERNAME}\"|g" "$FILE" && \
-  sed -i "s|PASSWORD = .*|PASSWORD = \"${PASSWORD}\"|g" "$FILE"; \
+for FILE in /etc/telegraf/scripts/file1.txt /etc/telegraf/scripts/file2.txt; do \
+  sed -i "s|{PORT}|${PORT}|g; s|{WEBPATH}|${WEBPATH}|g; s|{USERNAME}|${USERNAME}|g; s|{PASSWORD}|${PASSWORD}|g" "$FILE"; \
 done
 '
 ```
@@ -44,7 +40,6 @@ add this input to your telegraf.conf
   commands = ["/usr/bin/python3 /etc/telegraf/scripts/traffic.py"]
   timeout = "30s"
   data_format = "influx"
-
 ```
 ```
 sudo systemctl restart telegraf
