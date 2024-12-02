@@ -22,7 +22,7 @@ read -p "Enter port (PORT): " PORT && \
 read -p "Enter web path (WEBPATH): " WEBPATH && \
 read -p "Enter username (USERNAME): " USERNAME && \
 read -sp "Enter password (PASSWORD): " PASSWORD && echo && \
-for FILE in /etc/telegraf/scripts/file1.txt /etc/telegraf/scripts/file2.txt; do \
+for FILE in /etc/telegraf/scripts/online.py /etc/telegraf/scripts/traffic.py; do \
   sed -i "s|{PORT}|${PORT}|g; s|{WEBPATH}|${WEBPATH}|g; s|{USERNAME}|${USERNAME}|g; s|{PASSWORD}|${PASSWORD}|g" "$FILE"; \
 done
 '
