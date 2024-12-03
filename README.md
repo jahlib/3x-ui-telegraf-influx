@@ -1,6 +1,14 @@
 # 3x-ui-telegraf-influx
 3x-ui online users and traffic metric collector for grafana (telegraf+influxdb)
 
+First of all you need Python3 and "requests" and "json" libs.
+```
+sudo apt install python3 python3-pip
+```
+```
+sudo pip3 install requests json
+```
+
 ## Telegraf configuration
 ```
 cd /etc/telegraf/ && sudo mkdir scripts && cd scripts
