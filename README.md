@@ -6,7 +6,7 @@ First of all you need Python3 and "requests" and "json" libs.
 sudo apt install python3 python3-pip
 ```
 ```
-sudo pip3 install requests json
+sudo pip3 install requests
 ```
 
 ## Telegraf configuration
