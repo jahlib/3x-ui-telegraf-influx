@@ -42,7 +42,7 @@ def fetch_clients_list(cookies):
 def calculate_remaining_days(expiry_time):
     current_time = int(time.time() * 1000)  # Текущее время в миллисекундах
     remaining_ms = expiry_time - current_time
-    return max(remaining_ms // (1000 * 60 * 60 * 24), 0)  # Остаток дней
+    return remaining_ms // (1000 * 60 * 60 * 24)  # Остаток дней (может быть отрицательным)
 
 def format_for_influxdb(clients_data):
     timestamp = int(time.time() * 1000000000)  # nanoseconds
@@ -84,3 +84,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
