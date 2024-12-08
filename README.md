@@ -63,4 +63,4 @@ make sure your new metrics are showing up
 telegraf --config telegraf.conf --test
 ```
 
-#### To update to the latest version of the scripts when new commits are available in this repository, simply execute the wget commands provided in the Get Scripts section.
+#### To update to the latest version of the scripts when new commits are available in this repository, simply execute the wget commands provided in the Get Scripts section and re-run one-shot command.
