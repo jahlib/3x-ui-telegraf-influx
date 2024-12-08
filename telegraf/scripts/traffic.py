@@ -39,6 +39,11 @@ def fetch_clients_list(cookies):
     except requests.exceptions.RequestException:
         return None
 
+def calculate_remaining_days(expiry_time):
+    current_time = int(time.time() * 1000)  # Текущее время в миллисекундах
+    remaining_ms = expiry_time - current_time
+    return max(remaining_ms // (1000 * 60 * 60 * 24), 0)  # Остаток дней
+
 def format_for_influxdb(clients_data):
     timestamp = int(time.time() * 1000000000)  # nanoseconds
     lines = []
@@ -46,8 +51,9 @@ def format_for_influxdb(clients_data):
         for client in clients_data:
             # Escape special characters in email for InfluxDB line protocol
             escaped_email = client.get("email", "unknown").replace(" ", "\\ ")
+            remaining_days = calculate_remaining_days(client.get("expiryTime", 0))
             lines.append(
-                f"clients,source=local_api,email={escaped_email} up={client.get('up', 0)},down={client.get('down', 0)},enable={int(client.get('enable', False))} {timestamp}"
+                f"clients,source=local_api,email={escaped_email} up={client.get('up', 0)},down={client.get('down', 0)},enable={int(client.get('enable', False))},remaining_days={remaining_days} {timestamp}"
             )
     return lines
 
@@ -66,7 +72,8 @@ def main():
                         "email": client.get("email", "unknown"),
                         "up": client.get("up", 0),
                         "down": client.get("down", 0),
-                        "enable": client.get("enable", False)
+                        "enable": client.get("enable", False),
+                        "expiryTime": client.get("expiryTime", 0)  # Добавляем expiryTime
                     }
                     clients.append(client_data)
         
