@@ -11,13 +11,14 @@ sudo pip3 install requests
 
 ## Telegraf configuration
 ```
-cd /etc/telegraf/ && sudo mkdir scripts && cd scripts
+cd /etc/telegraf/ && sudo mkdir scripts
+```
+## Get scripts
+```
+sudo wget https://raw.githubusercontent.com/jahlib/3x-ui-telegraf-influx/refs/heads/main/telegraf/scripts/online.py -O /etc/telegraf/scripts/online.py
 ```
 ```
-sudo wget https://raw.githubusercontent.com/jahlib/3x-ui-telegraf-influx/refs/heads/main/telegraf/scripts/online.py
-```
-```
-sudo wget https://raw.githubusercontent.com/jahlib/3x-ui-telegraf-influx/refs/heads/main/telegraf/scripts/traffic.py
+sudo wget https://raw.githubusercontent.com/jahlib/3x-ui-telegraf-influx/refs/heads/main/telegraf/scripts/traffic.py -O /etc/telegraf/scripts/traffic.py
 ```
 ```
 sudo chmod a+x online.py traffic.py
@@ -37,6 +38,9 @@ done
 ```
 
 add this input to your telegraf.conf
+```
+sudo nano /etc/telegraf/telegraf.conf
+```
 ```
 [[inputs.exec]]
   commands = ["/usr/bin/python3 /etc/telegraf/scripts/online.py"]
@@ -59,3 +63,4 @@ make sure your new metrics are showing up
 telegraf --config telegraf.conf --test
 ```
 
+#### To update to the latest version of the scripts when new commits are available in this repository, simply execute the wget commands provided in the Get Scripts section.
