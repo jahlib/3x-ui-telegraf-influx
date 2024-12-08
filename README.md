@@ -27,6 +27,7 @@ sudo chmod a+x online.py traffic.py
 Run that one-shot command to enter&replace placeholders in both files:
 ```
 sudo bash -c '
+x-ui settings && \
 read -p "Enter port (PORT): " PORT && \
 read -p "Enter web path (WEBPATH): " WEBPATH && \
 read -p "Enter username (USERNAME): " USERNAME && \
