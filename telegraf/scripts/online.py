@@ -44,19 +44,23 @@ def fetch_inbound_onlines(cookies):
         return None
 
 def format_for_influxdb(data):
+    if not data or 'obj' not in data or not isinstance(data['obj'], list):
+        timestamp = int(time.time() * 1000000000)
+        return f"online_users,source=local_api user_count=0 {timestamp}"
+    
     timestamp = int(time.time() * 1000000000)
-    user_count = len(data['obj']) if data and 'obj' in data else 0
+    user_count = len(data['obj'])
     line = f"online_users,source=local_api user_count={user_count} {timestamp}"
     return line
 
 def main():
     cookies = login_and_get_cookie()
     if not cookies:
+        print("online_users,source=local_api user_count=0")
         return
     data = fetch_inbound_onlines(cookies)
-    if data:
-        influxdb_line = format_for_influxdb(data)
-        print(influxdb_line)
+    influxdb_line = format_for_influxdb(data)
+    print(influxdb_line)
 
 if __name__ == "__main__":
     main()
