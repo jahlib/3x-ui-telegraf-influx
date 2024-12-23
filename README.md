@@ -11,7 +11,7 @@ sudo pip3 install requests
 
 ## Telegraf configuration
 ```
-cd /etc/telegraf/ && sudo mkdir scripts
+cd /etc/telegraf/ && sudo mkdir scripts && cd scripts
 ```
 ## Get scripts
 ```
